@@ -31,6 +31,7 @@ export default function Home() {
                 id: details.id,
                 name: details.name,
                 sprite: details.sprites.front_default,
+                types: details.types.map((t) => t.type.name),
               };
             } catch (err) {
               console.warn(`Error fetching ${pokemon.name}:`, err.message);
@@ -38,13 +39,17 @@ export default function Home() {
                 id: 0,
                 name: `${pokemon.name}`,
                 sprite: "/missing-sprite.png", // Fallback sprite
+                types: [],
               };
             }
           })
         );
 
-        setPokemonList(detailedData);
-        setFilteredList(detailedData);
+        // Sort pokemon by id
+        const sortedData = detailedData.sort((a, b) => a.id - b.id);
+        // Set the pokemon list and filtered list
+        setPokemonList(sortedData);
+        setFilteredList(sortedData);
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
       } finally {
@@ -62,7 +67,7 @@ export default function Home() {
   }, [searchTerm, pokemonList]);
 
   return (
-    <main className="ml-64 flex flex-col flex-1 p-2 background-image">
+    <main className="ml-64 flex flex-col flex-1 p-2 gap-2 background-image">
       <h1 className="text-2xl font-semibold text-white">Pokédex Search</h1>
 
       <input
@@ -70,15 +75,21 @@ export default function Home() {
         placeholder="Search Pokémon..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 mb-6 text-white border rounded"
+        className="w-full p-3 bg-white border rounded-lg shadow"
       />
 
       {isLoading ? (
         <div className="text-lg font-semibold text-white">Loading...</div>
       ) : (
-        <div className="flex flex-wrap overflow-y-auto gap-2 mt-2 mb-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 overflow-y-scroll ">
           {filteredList.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} sprite={pokemon.sprite} />
+            <PokemonCard
+              key={pokemon.name}
+              id={pokemon.id}
+              name={pokemon.name}
+              sprite={pokemon.sprite}
+              types={pokemon.types}
+            />
           ))}
         </div>
       )}
