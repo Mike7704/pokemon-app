@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { getPokemonByGeneration } from "@/api/getPokemonByGeneration";
 import PokemonCard from "@/components/PokemonCard";
 
 export default function Pokedex() {
@@ -14,50 +15,15 @@ export default function Pokedex() {
 
   // Fetch pokemon list based on generation
   useEffect(() => {
-    const fetchPokemonList = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch(`https://pokeapi.co/api/v2/generation/${generation}`);
-        const data = await res.json();
-
-        const detailedData = await Promise.all(
-          data.pokemon_species.map(async (pokemon) => {
-            try {
-              const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-              if (!res.ok) throw new Error(`Failed to fetch ${pokemon.name}`);
-              const details = await res.json();
-
-              return {
-                id: details.id,
-                name: details.name,
-                sprite: details.sprites.front_default,
-                types: details.types.map((t) => t.type.name),
-              };
-            } catch (err) {
-              console.warn(`Error fetching ${pokemon.name}:`, err.message);
-              return {
-                id: 0,
-                name: `${pokemon.name}`,
-                sprite: "/missing-sprite.png", // Fallback sprite
-                types: [],
-              };
-            }
-          })
-        );
-
-        // Sort pokemon by id
-        const sortedData = detailedData.sort((a, b) => a.id - b.id);
-        // Set the pokemon list and filtered list
-        setPokemonList(sortedData);
-        setFilteredList(sortedData);
-      } catch (error) {
-        console.error("Error fetching Pokémon data:", error);
-      } finally {
-        setIsLoading(false);
-      }
+    const fetchData = async () => {
+      setIsLoading(true);
+      const data = await getPokemonByGeneration(generation);
+      setPokemonList(data);
+      setFilteredList(data);
+      setIsLoading(false);
     };
 
-    fetchPokemonList();
+    fetchData();
   }, [generation]); // Rerun when the generation changes
 
   // Filter pokemon list based on search
@@ -81,7 +47,7 @@ export default function Pokedex() {
       {isLoading ? (
         <div className="text-lg font-semibold text-white">Loading...</div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 overflow-y-scroll ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 overflow-y-scroll">
           {filteredList.map((pokemon) => (
             <PokemonCard
               key={pokemon.name}
