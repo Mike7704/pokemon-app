@@ -23,7 +23,7 @@ export default function PokemonDetails() {
         setEvolution(evolution);
         setTypeEffectiveness(typeEffectiveness);
       } catch (err) {
-        console.error("Failed to load Pokémon data", err);
+        console.log("Failed to load Pokémon data", err);
       } finally {
         setIsLoading(false);
       }
@@ -32,10 +32,11 @@ export default function PokemonDetails() {
     fetchData();
   }, [id]);
 
-  if (isLoading) return <div className="ml-64 p-4">Loading Pokémon...</div>;
-  if (!pokemon) return <div className="ml-64 p-4">Pokémon not found.</div>;
-
-  return (
+  return isLoading || !pokemon ? (
+    <main className="ml-64 flex flex-col flex-1 p-2 gap-6 overflow-y-auto background-image">
+      <p className="text-lg font-semibold">{isLoading ? "Loading..." : "Pokémon not found."}</p>
+    </main>
+  ) : (
     <main className="ml-64 flex flex-col flex-1 p-2 gap-6 overflow-y-auto background-image">
       <div className="flex flex-col gap-2">
         <h1 className="capitalize text-4xl font-bold">{pokemon.name}</h1>

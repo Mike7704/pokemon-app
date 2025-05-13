@@ -9,6 +9,15 @@
   height: 100vh;
 }
 
+.background2-image {
+  background-image: url("/background2.jpg");
+  background-size: cover;
+  background-position: 6rem;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
 *::-webkit-scrollbar {
   width: 8px;
 }

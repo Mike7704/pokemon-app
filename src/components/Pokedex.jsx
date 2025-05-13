@@ -34,7 +34,7 @@ export default function Pokedex() {
 
   return (
     <main className="ml-64 flex flex-col flex-1 p-2 gap-2 background-image">
-      <h1 className="text-2xl font-semibold text-white">Pokédex Search</h1>
+      <h1 className="text-2xl font-semibold">Pokédex Search</h1>
 
       <input
         type="text"
@@ -45,7 +45,7 @@ export default function Pokedex() {
       />
 
       {isLoading ? (
-        <div className="text-lg font-semibold text-white">Loading...</div>
+        <div className="text-lg font-semibold">Loading...</div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 overflow-y-scroll">
           {filteredList.map((pokemon) => (

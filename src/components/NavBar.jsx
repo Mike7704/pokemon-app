@@ -10,21 +10,18 @@ export default function NavBar() {
     { num: 5, range: "494-649" },
     { num: 6, range: "650-721" },
     { num: 7, range: "722-809" },
-    { num: 8, range: "810-898" },
-    { num: 9, range: "899-1010" },
+    { num: 8, range: "810-905" },
+    { num: 9, range: "906-1010" },
   ];
 
   return (
     <aside className="fixed top-0 left-0 w-64 h-screen bg-gray-800 text-white flex flex-col p-4">
       <Image src={"/pokemon-logo.png"} alt={"Pokémon"} width={200} height={73} />
       <nav className="flex flex-col gap-2 mt-8">
-        <Link className="text-left px-3 py-2 bg-gray-700 hover:bg-yellow-500 hover:text-black rounded" href="/">
-          Home
-        </Link>
-        <Link className="text-left px-3 py-2 bg-gray-700 hover:bg-yellow-500 hover:text-black rounded" href="/">
-          My Team
-        </Link>
-        <Link className="text-left px-3 py-2 bg-gray-700 hover:bg-yellow-500 hover:text-black rounded" href="/">
+        <Link
+          className="text-left px-3 py-2 bg-gray-700 hover:bg-yellow-500 hover:text-black rounded"
+          href="/whos-that-pokemon"
+        >
           Who's That Pokémon?
         </Link>
       </nav>
