@@ -10,6 +10,7 @@ export default function WhosThatPokemon() {
   const [hasGuessed, setHasGuessed] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [score, setScore] = useState({ correct: 0, total: 0 });
 
   useEffect(() => {
     const loadPokemon = async () => {
@@ -28,8 +29,14 @@ export default function WhosThatPokemon() {
   }, [generation]);
 
   const handleGuess = () => {
+    const isAnswerCorrect = guess.trim().toLowerCase() === pokemon.name.toLowerCase();
+    setIsCorrect(isAnswerCorrect);
     setHasGuessed(true);
-    setIsCorrect(guess.trim().toLowerCase() === pokemon.name.toLowerCase());
+
+    setScore((prev) => ({
+      correct: prev.correct + (isAnswerCorrect ? 1 : 0),
+      total: prev.total + 1,
+    }));
   };
 
   const resetGame = () => {
@@ -55,7 +62,7 @@ export default function WhosThatPokemon() {
 
   return (
     <main className="ml-64 flex flex-col flex-1 justify-center p-2 gap-6 background2-image">
-      <div className="flex flex-col items-center text-center gap-6 max-w-md w-full ml-50">
+      <div className="flex flex-col items-center text-center gap-6 max-w-md w-full ml-40">
         <h1 className="text-4xl font-bold">Who&apos;s That Pokémon?</h1>
 
         <div className="flex items-center gap-2">
@@ -74,7 +81,7 @@ export default function WhosThatPokemon() {
         </div>
 
         {isLoading ? (
-          <p className="text-lg font-semibold h-97.5">Loading...</p>
+          <p className="text-lg font-semibold h-110.5">Loading...</p>
         ) : (
           <>
             <Image
@@ -115,6 +122,9 @@ export default function WhosThatPokemon() {
                 </button>
               </>
             )}
+            <p className="text-lg font-medium">
+              Score: {score.correct} / {score.total}
+            </p>
           </>
         )}
       </div>
