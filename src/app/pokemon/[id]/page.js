@@ -33,11 +33,13 @@ export default function PokemonDetails() {
   }, [id]);
 
   return isLoading || !pokemon ? (
-    <main className="ml-64 flex flex-col flex-1 p-2 gap-6 overflow-y-auto background-image">
+    <main className="md:ml-64 md:mt-0 mt-17 flex flex-col flex-1 p-2 gap-6 overflow-y-auto">
+      <div className="background-image"></div>
       <p className="text-lg font-semibold">{isLoading ? "Loading..." : "Pokémon not found."}</p>
     </main>
   ) : (
-    <main className="ml-64 flex flex-col flex-1 p-2 gap-6 overflow-y-auto background-image">
+    <main className="md:ml-64 md:mt-0 mt-17 flex flex-col flex-1 p-2 gap-6">
+      <div className="background-image"></div>
       <div className="flex flex-col gap-2">
         <h1 className="capitalize text-4xl font-bold">{pokemon.name}</h1>
         <p className="text-lg">{description}</p>
@@ -104,7 +106,7 @@ export default function PokemonDetails() {
         <p>Weight: {pokemon.weight / 10} kg</p>
       </div>
 
-      <div>
+      <div className="pb-2">
         <h2 className="text-2xl font-semibold mb-2">Evolution Chain</h2>
         <div className="flex gap-4 flex-wrap items-center">
           {evolution.map((stage) => (

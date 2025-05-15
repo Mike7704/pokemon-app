@@ -3,7 +3,7 @@ import PokeDex from "@/components/Pokedex";
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="ml-64 p-4 text-white">Loading Pokédex...</div>}>
+    <Suspense fallback={<div className="md:ml-64 md:mt-0 mt-17 p-4">Loading Pokédex...</div>}>
       <PokeDex />
     </Suspense>
   );

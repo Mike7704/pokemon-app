@@ -33,7 +33,8 @@ export default function Pokedex() {
   }, [searchTerm, pokemonList]);
 
   return (
-    <main className="ml-64 flex flex-col flex-1 p-2 gap-2 background-image">
+    <main className="md:ml-64 md:mt-0 mt-17 flex flex-col flex-1 p-2 gap-2">
+      <div className="background-image"></div>
       <h1 className="text-2xl font-semibold">Pokédex Search</h1>
 
       <input

@@ -61,8 +61,9 @@ export default function WhosThatPokemon() {
   };
 
   return (
-    <main className="ml-64 flex flex-col flex-1 justify-center p-2 gap-6 background2-image">
-      <div className="flex flex-col items-center text-center gap-6 max-w-md w-full ml-40">
+    <main className="md:ml-64 flex flex-col flex-1 justify-center p-2 gap-6">
+      <div className="background2-image"></div>
+      <div className="flex flex-col items-center self-center text-center gap-6 max-w-md w-full lg:self-start lg:ml-25">
         <h1 className="text-4xl font-bold">Who&apos;s That Pokémon?</h1>
 
         <div className="flex items-center gap-2">
