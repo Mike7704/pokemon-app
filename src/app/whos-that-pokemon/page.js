@@ -61,10 +61,10 @@ export default function WhosThatPokemon() {
   };
 
   return (
-    <main className="md:ml-64 flex flex-col flex-1 justify-center p-2 gap-6">
+    <main className="md:ml-64 md:mt-0 mt-17 flex flex-col flex-1 justify-center p-2 gap-6">
       <div className="background2-image"></div>
       <div className="flex flex-col items-center self-center text-center gap-6 max-w-md w-full lg:self-start lg:ml-25">
-        <h1 className="text-4xl font-bold">Who&apos;s That Pokémon?</h1>
+        <h1 className="md:text-4xl text-3xl font-bold">Who&apos;s That Pokémon?</h1>
 
         <div className="flex items-center gap-2">
           <label className="text-md font-semibold">Select Generation:</label>
@@ -90,7 +90,9 @@ export default function WhosThatPokemon() {
               alt="Who's that Pokémon?"
               width={256}
               height={256}
-              className={`transition duration-500 ${hasGuessed ? "brightness-100" : "brightness-0"}`}
+              className={`select-none pointer-events-none user-drag-none transition duration-500 ${
+                hasGuessed ? "brightness-100" : "brightness-0"
+              }`}
               draggable="false"
             />
 
